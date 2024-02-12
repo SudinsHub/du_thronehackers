@@ -1,18 +1,24 @@
 import express from "express";
 import 'dotenv/config';
 import mongoose from "mongoose";
-import bookRoute from "./src/routes/book.js";
 import { dbName } from "./src/constants.js";
-import { Book } from "./src/models.js";
+import stationRoute from "./src/routes/stations.js";
+import userRoute from "./src/routes/users.js";
+import trainRoute from "./src/routes/trains.js";
+import walletRoute from "./src/routes/wallet.js";
+import { User, Train, Station } from "./src/models.js";
 const dbUrl = process.env.MONGODB_URI;
- 
+
 mongoose
   .connect(dbUrl + '/' + dbName)
   .then(() => {
     console.log("Connected to database!");
   })
   .then(() => {
-    Book.collection.drop();
+    // TO DO
+    User.collection.drop();
+    Train.collection.drop();
+    Station.collection.drop();
     console.log("Cleared Book Collection!");
   })
   .catch((error) => {
@@ -23,11 +29,12 @@ mongoose
 
 const app = express();
 
-app.get('/', (req, res)=>{
-    res.send("Hello API");
-});
+app.use(express.json());
+app.use('/api/trains', trainRoute);
+app.use('/api/stations', stationRoute);
+app.use('/api/users', userRoute);
+app.use('/api/wallets', walletRoute);
 
-app.use('/api/books', bookRoute);
 
 
 const PORTA = process.env.PORT;

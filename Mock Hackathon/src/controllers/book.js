@@ -1,8 +1,7 @@
-import { bookSchema } from "../models.js";
+import { Book } from "../models.js";
 import mongoose from "mongoose";
-let books = [];
+// let books = [];
 
-const Book = mongoose.model("Book", bookSchema);
 
 export const createNew = (req, res)=>{
     const dtls = req.body;

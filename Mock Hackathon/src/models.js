@@ -8,6 +8,6 @@ export const bookSchema = mongoose.Schema({
     price: Number
 });
 
-// export const Book = mongoose.model("Book", bookSchema);
+export const Book = mongoose.model("Book", bookSchema);
 
   
